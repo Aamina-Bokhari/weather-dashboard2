@@ -111,6 +111,7 @@ function updateCurrentWeather(data) {
     const tempUnit = currentUnit === 'metric' ? '°C' : '°F';
     const weatherHtml = `
         <h2>${data.name}</h2>
+        <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="${data.weather[0].description}">
         <p>Temperature: ${data.main.temp} ${tempUnit}</p>
         <p>Weather: ${data.weather[0].description}</p>
         <p>Humidity: ${data.main.humidity}%</p>
@@ -122,48 +123,6 @@ function updateCurrentWeather(data) {
     const weatherCondition = data.weather[0].main.toLowerCase();
     let backgroundImage = getBackgroundImage(weatherCondition);
     document.querySelector('.weather-widget').style.backgroundImage = backgroundImage;
-}
-
-// Other functions for updating charts remain the same...
-
-// Update current weather display
-function updateCurrentWeather(data) {
-    const tempUnit = currentUnit === 'metric' ? '°C' : '°F';
-    const weatherHtml = `
-        <h2>${data.name}</h2>
-        <p>Temperature: ${data.main.temp} ${tempUnit}</p>
-        <p>Weather: ${data.weather[0].description}</p>
-        <p>Humidity: ${data.main.humidity}%</p>
-        <p>Wind Speed: ${data.wind.speed} m/s</p>
-    `;
-    currentWeather.innerHTML = weatherHtml;
-
-    // Update background image based on weather condition
-    const weatherCondition = data.weather[0].main.toLowerCase();
-    let backgroundImage = getBackgroundImage(weatherCondition);
-    document.querySelector('.weather-widget').style.backgroundImage = backgroundImage;
-}
-
-// Get background image based on weather condition
-function getBackgroundImage(condition) {
-    switch (condition) {
-        case 'clear':
-            return 'url("clear.jpg")';
-        case 'clouds':
-            return 'url("cloud.jpg")';
-        case 'rain':
-            return 'url("rainy.jpg")';
-        case 'thunderstorm':
-            return 'url("thunderstorm.jpg")';
-        case 'snow':
-            return 'url("snow.jpg")';
-        case 'mist':
-        case 'haze':
-            case 'smoke':
-            return 'url("mist.jpg")';
-        default:
-            return 'url("default.jpg")';
-    }
 }
 
 // Update temperature chart
@@ -186,7 +145,12 @@ function updateTemperatureChart(data) {
         },
         options: {
             responsive: true,
-            scales: { y: { beginAtZero: false } }
+            scales: { y: { beginAtZero: false } },
+            animation: {
+                delay: (context) => {
+                    return context.dataIndex * 100;
+                }
+            }
         }
     });
 }
@@ -210,7 +174,14 @@ function updateWeatherConditionsChart(data) {
                 borderWidth: 1
             }]
         },
-        options: { responsive: true }
+        options: { 
+            responsive: true,
+            animation: {
+                delay: (context) => {
+                    return context.dataIndex * 100;
+                }
+            }
+        }
     });
 }
 
@@ -236,6 +207,43 @@ function updateTemperatureTrendChart(data) {
                 tension: 0.1
             }]
         },
-        options: { responsive: true }
+        options: { 
+            responsive: true,
+            animation: {
+                y: {
+                    duration: 1000,
+                    from: 500
+                }
+            }
+        }
     });
+}
+
+// Get background image based on weather condition
+function getBackgroundImage(condition) {
+    switch (condition) {
+        case 'clear':
+            return 'url("clear.jpg")';
+        case 'clouds':
+            return 'url("cloud.jpg")';
+        case 'rain':
+            return 'url("rainy.jpg")';
+        case 'thunderstorm':
+            return 'url("thunderstorm.jpg")';
+        case 'snow':
+            return 'url("snow.jpg")';
+        case 'mist':
+        case 'haze':
+        case 'smoke':
+            return 'url("mist.jpg")';
+        default:
+            return 'url("default.jpg")';
+    }
+}
+
+// Display 5-day forecast
+function display5DayForecast(data) {
+    // Implementation for 5-day forecast display
+    // This function should be implemented to show the forecast in the dashboard
+    console.log("5-day forecast data:", data);
 }
