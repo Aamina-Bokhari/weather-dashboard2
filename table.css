@@ -1,0 +1,361 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --background-color: #ecf0f1;
+    --text-color: #34495e;
+    --card-background: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: var(--secondary-color);
+    padding: 20px;
+    color: var(--card-background);
+}
+
+/* Logo container */
+.logo {
+    width: 100%;  
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 10px; 
+    box-sizing: border-box;
+}
+
+/* Logo image with rounded corners */
+.logo img {
+    max-width: 100%;  
+    max-height: 100%; 
+    height: auto;
+    width: auto;
+    border-radius: 15px;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    margin: 15px 0;
+}
+
+nav ul li a {
+    color: var(--card-background);
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    border-radius: 8px;
+}
+
+nav ul li a.active, nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.content {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+/* Updated layout for table and chatbot sections */
+.content > div:first-child {
+    margin-bottom: 30px;
+}
+
+/* New grid layout for table and chatbot */
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container for table and chatbot sections */
+.table-chatbot-container {
+    display: flex;
+    gap: 30px;
+    flex: 1;
+}
+
+.table-section {
+    flex: 2;  /* Takes up 2/3 of the space */
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.chatbot-section {
+    flex: 1;  /* Takes up 1/3 of the space */
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: 12px;
+    height: fit-content;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-background);
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.unit-toggle {
+    margin-left: 20px;
+}
+
+.user-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-data, .forecast-table {
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.table-controls {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Adds space between buttons */
+}
+
+.table-controls button {
+    padding: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+#chatMessages {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.chatbox {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.chatbox input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ddd;
+}
+
+.chatbox button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.loading-spinner {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .table-chatbot-container {
+        flex-direction: column;
+    }
+
+    .table-section, .chatbot-section {
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 10px; /* Adjust padding for mobile */
+    }
+
+    .logo {
+        height: 80px; /* Adjust logo height */
+    }
+
+    header {
+        flex-direction: column; /* Stack header elements */
+        align-items: flex-start; /* Align items to the left */
+        padding: 10px; /* Adjust padding for mobile */
+    }
+
+    .search-bar {
+        width: 100%;
+        margin-bottom: 10px; /* Space below search bar */
+    }
+
+    .search-bar input {
+        width: calc(100% - 80px); /* Adjust input width */
+    }
+
+    .unit-toggle {
+        margin-left: 0; /* Reset margin for mobile */
+        margin-top: 5x; /* Move unit button up */
+        margin-bottom: -6px;
+    }
+
+    .table-chatbot-container {
+        flex-direction: column; /* Stack table and chatbot */
+    }
+
+    .table-section,
+    .chatbot-section {
+        width: 100%; /* Full width for both sections */
+        margin-bottom: 20px; /* Space between sections */
+    }
+
+    .chatbox {
+        flex-direction: column; /* Stack chatbox items */
+        width: 100%; /* Full width for chatbox */
+    }
+
+    .chatbox input {
+        margin-bottom: 10px; /* Space below input */
+    }
+
+    .chatbox button {
+        width: 100%; /* Full width for button */
+    }
+}
+@media (max-width: 768px) {
+.search-bar button {
+padding : 4px 8px ;}
+    .user-profile {
+        position: absolute;
+        top: 20px;  /* Distance from the top of the page */
+        left: 20px; /* Distance from the left side of the page */
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--accent-color);
+        text-align: center;
+        color: white;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10; /* Ensure it stays on top of other content */
+        margin-top : -5px;
+    }
+    .unit-toggle button {
+        margin-left: 10px; 
+        margin-top: -8px;
+        border-radius: 8px;/* Space between unit toggle and search bar */
+    }
+    
+    .search-bar input {
+        flex-grow: 1;       /* Allow input to take up remaining space */
+    }
+    .table-controls {
+        flex-wrap: wrap; /* Allow buttons to wrap onto the next line */
+        justify-content: flex-start; /* Align buttons to the left */
+        margin-top: 10px; /* Space above the controls */
+        gap: 10px; /* Space between buttons */
+    }
+
+    .table-controls button {
+        padding: 8px; /* Adjust button padding for smaller screens */
+        flex: 1 1 auto; /* Allow buttons to grow and shrink */
+        min-width: 100px; /* Set a minimum width for buttons */
+    }
+}

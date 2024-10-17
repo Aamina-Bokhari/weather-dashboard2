@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard - Tables</title>
+    <link rel="stylesheet" href="table.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="logo.png" alt="Weather App Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">DASHBOARD</a></li>
+                    <li><a href="#" class="active">TABLES</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Header with Search -->
+            <header>
+                <div class="search-bar">
+                    <input type="text" id="cityInput" placeholder="Enter city name...">
+                    <button id="searchButton">Get Weather</button>
+                    <div class="unit-toggle">
+                        <button id="unitToggle">Switch to °F</button>
+                    </div>
+                </div>
+                <div class="user-profile">U</div>
+            </header>
+
+            <!-- Table and Chatbot Container -->
+            <div class="table-chatbot-container">
+                <!-- Weather Table Section -->
+                <div class="table-section">
+                    <h2>Weather Data Table</h2>
+                    <div id="weatherTableContainer">
+                        <!-- Table content will be dynamically inserted here -->
+                    </div>
+                    <div id="pagination">
+                        <!-- Pagination controls will be dynamically inserted here -->
+                    </div>
+                    <div class="table-controls">
+                        <button id="resetTable">Reset Table</button>
+                        <button id="sortAsc">Sort Temperatures Ascending</button>
+                        <button id="sortDesc">Sort Temperatures Descending</button>
+                        <button id="filterRain">Filter Rain Days</button>
+                        <button id="highestTemp">Highest Temperature Day</button>
+                    </div>
+                </div>
+
+                <!-- Chatbot Section -->
+                <div class="chatbot-section">
+                    <h2>Weather Assistant</h2>
+                    <div id="chatMessages">
+                        <!-- Chat messages will be dynamically inserted here -->
+                    </div>
+                    <div class="chatbox">
+                        <input type="text" id="chatInput" placeholder="Ask about weather...">
+                        <button id="chatSendButton">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner"></div>
+
+    <!-- Scripts -->
+    <script src="table.js"></script>
+</body>
+</html>
