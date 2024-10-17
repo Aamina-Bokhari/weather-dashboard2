@@ -29,7 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('filterRain').addEventListener('click', filterRainDays);
     document.getElementById('highestTemp').addEventListener('click', showHighestTemperatureDay);
     chatSendButton.addEventListener('click', handleChatSend);
-    unitToggle.addEventListener('click', toggleUnit); // Added for unit toggle
+    unitToggle.addEventListener('click', toggleUnit);
+
+    // Attempt to get the user's location
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const { latitude, longitude } = position.coords;
+            getWeatherDataByCoords(latitude, longitude);
+        }, error => {
+            console.error('Error getting geolocation:', error);
+            alert('Unable to get your location. Please enter a city manually.');
+        });
+    }
 });
 
 // Function to handle unit toggle
@@ -69,12 +80,33 @@ async function fetchForecastData(city) {
     return data.list;
 }
 
+// Fetch weather data by coordinates
+async function getWeatherDataByCoords(latitude, longitude) {
+    showLoadingSpinner();
+    const url = `${API_BASE_URL}/forecast?lat=${latitude}&lon=${longitude}&units=${currentUnit}&appid=${API_KEY}`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Forecast API Error: ${response.statusText}`);
+        }
+        const data = await response.json();
+        updateWeatherTable(data.list);
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+        alert('Error fetching weather data. Please try entering a city name.');
+    } finally {
+        hideLoadingSpinner();
+    }
+}
+
 // Update weather table
 function updateWeatherTable(data) {
     forecastData = data;
     originalForecastData = [...data];
     displayForecastPage(1);
 }
+
+// ... (previous code remains the same)
 
 // Display weather data in pages
 function displayForecastPage(page) {
@@ -91,6 +123,7 @@ function displayForecastPage(page) {
                     <th>Date</th>
                     <th>Temperature</th>
                     <th>Weather</th>
+                    <th>Icon</th>
                 </tr>
             </thead>
             <tbody>
@@ -102,6 +135,7 @@ function displayForecastPage(page) {
                 <td>${new Date(item.dt * 1000).toLocaleDateString()}</td>
                 <td>${Math.round(item.main.temp)}${tempUnit}</td>
                 <td>${item.weather[0].description}</td>
+                <td><img src="http://openweathermap.org/img/wn/${item.weather[0].icon}.png" alt="${item.weather[0].description}"></td>
             </tr>
         `;
     });
@@ -185,7 +219,7 @@ async function fetchCurrentWeather(city) {
         return data;
     } catch (error) {
         console.error('Error fetching current weather:', error);
-        return null; // Return null or handle the error appropriately
+        return null;
     }
 }
 
@@ -202,7 +236,6 @@ async function getWeatherResponse(message) {
         return "I'm sorry, I couldn't understand which city you're asking about.";
     }
 }
-
 
 // Extract city name from user message
 function extractCityFromMessage(message) {
@@ -255,4 +288,7 @@ function hideLoadingSpinner() {
 // Initialize the page
 function init() {
     // Any initialization code can go here
-} 
+}
+
+// Call init function when the script loads
+init();
