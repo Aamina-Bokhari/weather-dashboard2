@@ -85,7 +85,7 @@ Weather-Dashboard/
 
 Aamina Bokhari - aamina.bokhari@gmail.com
 
-Project Link: https://github.com/Aamina-Bokhari/Weather-Dashboard
+Project Link: https://github.com/Aamina-Bokhari/weather-dashboard2.html
 
 ## Acknowledgments
 
